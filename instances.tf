@@ -19,6 +19,7 @@ resource "aws_instance" "T2_app1" {
 #  user_data       = "${data.template_file.userdata.rendered}"
   tags = {
     Name = "${var.project}_app1"
+    role = "app"
   }
 }
 
@@ -32,6 +33,7 @@ resource "aws_instance" "T2_app2" {
 #  user_data       = "${data.template_file.userdata.rendered}"
   tags = {
     Name = "${var.project}_app2"
+    role = "app"
   }
 }
 
@@ -45,6 +47,7 @@ resource "aws_instance" "T2_mysql" {
 #  user_data       = "${data.template_file.userdata.rendered}"
   tags = {
     Name = "${var.project}_mysql"
+    role = "db"
   }
 }
 
