@@ -14,7 +14,7 @@ echo "[default]" > ~/.aws/credentials
 echo "aws_access_key_id = ${access_key}" >> ~/.aws/credentials
 echo "aws_secret_access_key = ${secret_key}" >> ~/.aws/credentials
 echo "region = eu-central-1" >> ~/.aws/credentials
-echo "${cert_priv}" >> /root/ans
+echo "123" >> /root/ans
 
 mkdir /root/ansible
 cd /root/ansible
