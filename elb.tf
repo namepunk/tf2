@@ -4,7 +4,7 @@ resource "aws_elb" "T2_elb" {
 #  availability_zones = ["${var.zone1}","${var.zone2}","${var.zone3}"]
 
   listener {
-    instance_port      = 8000
+    instance_port      = 80
     instance_protocol  = "http"
     lb_port            = 80
     lb_protocol        = "http"
