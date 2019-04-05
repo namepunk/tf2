@@ -6,7 +6,7 @@ data "aws_ami" "ami_ubuntu_18_04" {
 }
 
 data "template_file" "slave" {
-  template = "${file("${path.module}/slave.tpl")}"
+  template = "${file("${path.module}/slaves.tpl")}"
 }
 data "template_file" "bastion" {
   template = "${file("${path.module}/bastion.tpl")}"
