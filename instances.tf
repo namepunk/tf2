@@ -4,7 +4,7 @@ resource "aws_instance" "T2_bastion" {
   key_name = "Artem"
   subnet_id = "${aws_subnet.T2_public.id}"
   security_groups = ["${aws_security_group.T2_security_group.id}"]
-#  user_data       = "${data.template_file.userdata.rendered}"
+  user_data       = "${data.template_file.bastion.rendered}"
   tags = {
     Name = "${var.project}_bastion"
   }
@@ -16,7 +16,7 @@ resource "aws_instance" "T2_app1" {
   key_name = "Artem"
   subnet_id = "${aws_subnet.T2_private1.id}"
   security_groups = ["${aws_security_group.T2_security_group.id}"]
-#  user_data       = "${data.template_file.userdata.rendered}"
+  user_data       = "${data.template_file.slave.rendered}"
   tags = {
     Name = "${var.project}_app1"
     role = "app"
@@ -30,7 +30,7 @@ resource "aws_instance" "T2_app2" {
   key_name = "Artem"
   subnet_id = "${aws_subnet.T2_private2.id}"
   security_groups = ["${aws_security_group.T2_security_group.id}"]
-#  user_data       = "${data.template_file.userdata.rendered}"
+  user_data       = "${data.template_file.slave.rendered}"
   tags = {
     Name = "${var.project}_app2"
     role = "app"
@@ -44,7 +44,7 @@ resource "aws_instance" "T2_mysql" {
   key_name = "Artem"
   subnet_id = "${aws_subnet.T2_private2.id}"
   security_groups = ["${aws_security_group.T2_security_group.id}"]
-#  user_data       = "${data.template_file.userdata.rendered}"
+  user_data       = "${data.template_file.slave.rendered}"
   tags = {
     Name = "${var.project}_mysql"
     role = "db"
