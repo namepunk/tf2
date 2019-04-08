@@ -1,5 +1,7 @@
 resource "aws_vpc" "T2_VPC" {
   cidr_block = "${var.VPC_CIDR}"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
   tags = {
     Name = "${var.project}_VPC"
   }
@@ -61,9 +63,20 @@ resource "aws_subnet" "T2_public" {
   availability_zone = "${var.zone1}"
   map_public_ip_on_launch = "true"
   tags = {
-    Name = "${var.project}_public"
+    Name = "${var.project}_public1"
   }
 }
+
+resource "aws_subnet" "T2_public2" {
+  vpc_id     = "${aws_vpc.T2_VPC.id}"
+  cidr_block = "${var.subnet_pub2}"
+  availability_zone = "${var.zone2}"
+  map_public_ip_on_launch = "true"
+  tags = {
+    Name = "${var.project}_public2"
+  }
+}
+
 
 resource "aws_route_table_association" "T2_pub_ass" {
   subnet_id      = "${aws_subnet.T2_public.id}"
@@ -73,7 +86,7 @@ resource "aws_route_table_association" "T2_pub_ass" {
 resource "aws_subnet" "T2_private1" {
   vpc_id     = "${aws_vpc.T2_VPC.id}"
   cidr_block = "${var.subnet_pr1}"
-  availability_zone = "${var.zone2}"
+  availability_zone = "${var.zone1}"
   tags = {
     Name = "${var.project}_private1"
   }
@@ -87,7 +100,7 @@ resource "aws_route_table_association" "T2_pr1_ass" {
 resource "aws_subnet" "T2_private2" {
   vpc_id     = "${aws_vpc.T2_VPC.id}"
   cidr_block = "${var.subnet_pr2}"
-  availability_zone = "${var.zone3}"
+  availability_zone = "${var.zone2}"
   tags = {
     Name = "${var.project}_private2"
   }

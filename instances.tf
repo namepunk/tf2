@@ -7,6 +7,9 @@ resource "aws_instance" "T2_bastion" {
   user_data       = "${data.template_file.bastion.rendered}"
   tags = {
     Name = "${var.project}_bastion"
+  depends_on = "aws_instance.T2_mysql"
+  depends_on = "aws_instance.T2_app1"
+  depends_on = "aws_instance.T2_app2"
   }
 }
 
