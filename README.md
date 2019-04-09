@@ -7,8 +7,11 @@
 5. создаем файлик myname.auto.tfvars c содержимым
 
 access_key = "insert_here_aws_access_key"
+
 secret_key = "insert_here_aws_secret_key"
+
 cert_pub = "mykey.pub"
+
 cert_priv = "mykey"
 user_key = "name_of_user_key_in_aws"
 
