@@ -43,3 +43,6 @@ variable secret_key {
 variable cert_priv {
       default = "cert"
 }
+variable user_key {
+      default = "mykey"
+}

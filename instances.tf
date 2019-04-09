@@ -1,7 +1,7 @@
 resource "aws_instance" "T2_bastion" {
   ami =  "${data.aws_ami.ami_ubuntu_18_04.id}"
   instance_type = "t2.micro"
-  key_name = "Artem"
+  key_name = "${var.user_key}"
   subnet_id = "${aws_subnet.T2_public.id}"
   security_groups = ["${aws_security_group.T2_security_group.id}"]
   user_data       = "${data.template_file.bastion.rendered}"
@@ -16,7 +16,7 @@ resource "aws_instance" "T2_bastion" {
 resource "aws_instance" "T2_app1" {
   ami = "${data.aws_ami.ami_ubuntu_18_04.id}"
   instance_type = "t2.micro"
-  key_name = "Artem"
+  key_name = "${var.user_key}"
   subnet_id = "${aws_subnet.T2_private1.id}"
   security_groups = ["${aws_security_group.T2_security_group.id}"]
   user_data       = "${data.template_file.slave.rendered}"
@@ -30,7 +30,7 @@ resource "aws_instance" "T2_app1" {
 resource "aws_instance" "T2_app2" {
   ami = "${data.aws_ami.ami_ubuntu_18_04.id}"
   instance_type = "t2.micro"
-  key_name = "Artem"
+  key_name = "${var.user_key}"
   subnet_id = "${aws_subnet.T2_private2.id}"
   security_groups = ["${aws_security_group.T2_security_group.id}"]
   user_data       = "${data.template_file.slave.rendered}"
@@ -44,7 +44,7 @@ resource "aws_instance" "T2_app2" {
 resource "aws_instance" "T2_mysql" {
   ami = "${data.aws_ami.ami_ubuntu_18_04.id}"
   instance_type = "t2.micro"
-  key_name = "Artem"
+  key_name = "${var.user_key}"
   subnet_id = "${aws_subnet.T2_private2.id}"
   security_groups = ["${aws_security_group.T2_security_group.id}"]
   user_data       = "${data.template_file.slave.rendered}"
