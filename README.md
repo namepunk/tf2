@@ -13,7 +13,9 @@ secret_key = "insert_here_aws_secret_key"
 cert_pub = "mykey.pub"
 
 cert_priv = "mykey"
+
 user_key = "name_of_user_key_in_aws"
+
 
 6. terraform init
 7. terraform apply
