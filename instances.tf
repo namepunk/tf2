@@ -30,7 +30,7 @@ resource "aws_autoscaling_group" "T2_asg" {
   launch_configuration = "${aws_launch_configuration.T2_launch_cfg.id}"
   min_size = 2
   max_size = 2
-  depends_on = ["${aws_lb.T2_elb.name}"]
+##  depends_on = ["${aws_lb.T2_elb.name}"]
   force_delete = true
   health_check_type = "EC2"
   health_check_grace_period = 600
