@@ -13,32 +13,41 @@ resource "aws_instance" "T2_bastion" {
   }
 }
 
-resource "aws_instance" "T2_app1" {
-  ami = "${data.aws_ami.ami_ubuntu_18_04.id}"
-  instance_type = "t2.micro"
-  key_name = "${var.user_key}"
-  subnet_id = "${aws_subnet.T2_private1.id}"
-  security_groups = ["${aws_security_group.T2_security_group.id}"]
-  user_data       = "${data.template_file.slave.rendered}"
-  tags = {
-    Name = "${var.project}_app1"
-    role = "app"
+resource "aws_launch_configuration" "T2_launch_cfg" {
+  name                   = "T2_launch_cfg"
+  image_id               = "${data.aws_ami.ami_ubuntu_18_04.id}"
+  instance_type          = "t2.micro"
+  security_groups        = ["${aws_security_group.T2_security_group.id}"]
+  key_name               = "${var.user_key}"
+  user_data = "${data.template_file.slave.rendered}"
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_autoscaling_group" "T2_asg" {
+  name = "T2_asg"
+  launch_configuration = "${aws_launch_configuration.T2_launch_cfg.id}"
+  min_size = 2
+  max_size = 2
+  load_balancers = ["${aws_elb.T2_elb.name}"]
+  force_delete = true
+  health_check_type = "ELB"
+  health_check_grace_period = 600
+  vpc_zone_identifier = ["${aws_subnet.T2_private1.id}", "${aws_subnet.T2_private2.id}"]
+  tag {
+    key = "role"
+    value = "app"
+    propagate_at_launch = true
+  }
+    tag {
+    key = "Name"
+    value = "app"
+    propagate_at_launch = true
   }
 }
 
 
-resource "aws_instance" "T2_app2" {
-  ami = "${data.aws_ami.ami_ubuntu_18_04.id}"
-  instance_type = "t2.micro"
-  key_name = "${var.user_key}"
-  subnet_id = "${aws_subnet.T2_private2.id}"
-  security_groups = ["${aws_security_group.T2_security_group.id}"]
-  user_data       = "${data.template_file.slave.rendered}"
-  tags = {
-    Name = "${var.project}_app2"
-    role = "app"
-  }
-}
 
 
 resource "aws_instance" "T2_mysql" {
