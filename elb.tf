@@ -1,5 +1,5 @@
 resource "aws_elb" "T2_elb" {
-	name			= "T2_elb"
+	name			= "T2elb"
 	availability_zones	= ["${var.zone1}", "${var.zone2}"]
 	security_groups    = ["${aws_security_group.T2_security_group.id}"]
 	listener {
