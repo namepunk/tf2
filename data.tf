@@ -15,14 +15,14 @@ data "local_file" "cert_priv_data" {
 
 data "template_file" "slave" {
   template = "${file("${path.module}/slaves.tpl")}"
-  vars {
+  vars = {
     cert = "${data.local_file.cert_pub_data.content}"
   }
 }
 
 data "template_file" "bastion" {
   template = "${file("${path.module}/bastion.tpl")}"
-  vars {
+  vars = {
     access_key = "${var.access_key}"
     secret_key = "${var.secret_key}"
     priv = "${data.local_file.cert_priv_data.content}" 

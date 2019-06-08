@@ -25,7 +25,7 @@ resource "aws_lb_target_group" "T2_lb_target_group" {
   port     = "80"  
   protocol = "HTTP"  
   vpc_id   = "${aws_vpc.T2_VPC.id}"   
-  tags {    
+  tags = {    
     name = "T2_tg"    
   }   
 }
