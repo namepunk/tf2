@@ -30,10 +30,11 @@ resource "aws_autoscaling_group" "T2_asg" {
   launch_configuration = "${aws_launch_configuration.T2_launch_cfg.id}"
   min_size = 2
   max_size = 2
-  load_balancers = ["${aws_lb.T2_elb.name}"]
+  depends_on = ["${aws_lb.T2_elb.name}"]
   force_delete = true
-  health_check_type = "ELB"
+  health_check_type = "EC2"
   health_check_grace_period = 600
+  target_group_arns         = ["${aws_lb_target_group.T2_lb_target_group.arn}"]
   vpc_zone_identifier = ["${aws_subnet.T2_private1.id}", "${aws_subnet.T2_private2.id}"]
   tag {
     key = "role"
