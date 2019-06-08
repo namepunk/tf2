@@ -30,7 +30,7 @@ resource "aws_autoscaling_group" "T2_asg" {
   launch_configuration = "${aws_launch_configuration.T2_launch_cfg.id}"
   min_size = 2
   max_size = 2
-  load_balancers = ["${aws_elb.T2_elb.name}"]
+  load_balancers = ["${aws_lb.T2_elb.name}"]
   force_delete = true
   health_check_type = "ELB"
   health_check_grace_period = 600
