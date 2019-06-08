@@ -8,8 +8,8 @@ resource "aws_instance" "T2_bastion" {
   tags = {
     Name = "${var.project}_bastion"
   depends_on = "aws_instance.T2_mysql"
-  depends_on = "aws_instance.T2_app1"
-  depends_on = "aws_instance.T2_app2"
+  depends_on = "aws_autoscaling_group.T2_asg"
+  
   }
 }
 
@@ -31,7 +31,7 @@ resource "aws_autoscaling_group" "T2_asg" {
   min_size = 2
   max_size = 2
   force_delete = true
-  health_check_type = "EC2"
+  health_check_type = "ELB"
   health_check_grace_period = 600
   vpc_zone_identifier = ["${aws_subnet.T2_private1.id}", "${aws_subnet.T2_private2.id}"]
   load_balancers		= ["${aws_elb.T2_elb.name}"]
